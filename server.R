@@ -407,6 +407,7 @@ shinyServer(function(input, output, session) {
   })
 
   output$kruskal <- renderTable({
+
     measure <- input$measure
 
     stats_test <- left_join(subset(year_table_last_val, Indicator.Name == measure), country.inf, by = c("Country.Code" = "adm0_a3"))
@@ -430,6 +431,14 @@ shinyServer(function(input, output, session) {
   })
 
   output$aovSummary = renderTable({
+
+    measure <- input$measure
+
+    stats_test <- left_join(subset(year_table_last_val, Indicator.Name == measure), country.inf, by = c("Country.Code" = "adm0_a3"))
+
+    stats_test$economy_rank <- as.numeric(as.character(gsub("(^[1-7])(.*)", "\\1", stats_test$economy)))
+    stats_test$income_grp_rank <- as.numeric(as.character(gsub("(^[1-5])(.*)", "\\1", stats_test$income_grp)))
+
     mod.boik <- lm(log2(unlist.last_val.) ~ gdp_md_est * pop_est * economy_rank * income_grp_rank * continent, data = stats_test)
     anova <- data.frame(Variables = rownames(anova(mod.boik)),
                         anova(mod.boik))

@@ -49,12 +49,10 @@ shinyUI(
         tabPanel("World map", fluidRow(
                                   tags$h3("World map of gender statistic"),
 
-                                  p("Select a statistic and year on sidebar panel."),
+                                  p("Select a statistic and year on sidebar panel and click on any country on the map to find out more about it."),
 
                                   plotOutput("map",
                                              click = "plot_click", height = "auto"),
-
-                                  p("Click on any country on the map to find out more about it:"),
 
                                   tableOutput("info"))),
 
